@@ -1,0 +1,114 @@
+.after-logout-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease;
+}
+
+.logout-info-card {
+  border: none;
+  border-radius: 1rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  background-color: white;
+  transition: background-color 0.3s ease;
+}
+
+.logout-icon {
+  color: #6c757d;
+  animation: fadeSlideIn 0.5s ease-out;
+}
+
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.logout-message-section {
+  animation: fadeIn 0.6s ease-out 0.2s both;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.logout-message {
+  background: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.logout-message p {
+  margin-bottom: 0.5rem;
+}
+
+.return-button {
+  min-width: 250px;
+  font-weight: 600;
+  padding: 0.75rem 2rem;
+}
+
+.security-note {
+  padding: 1rem;
+  background: #fff3cd;
+  border-radius: 0.5rem;
+  border: 1px solid #ffeaa7;
+}
+
+/* Dark mode styles */
+[data-theme="dark"] .after-logout-container {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+}
+
+[data-theme="dark"] .logout-info-card {
+  background-color: #2d2d3d;
+  color: #e0e0e0;
+}
+
+[data-theme="dark"] .logout-info-card h2 {
+  color: #e0e0e0;
+}
+
+[data-theme="dark"] .logout-info-card .text-muted {
+  color: #b0b0b0 !important;
+}
+
+[data-theme="dark"] .logout-message {
+  background: #3d3d4d;
+}
+
+[data-theme="dark"] .logout-icon {
+  color: #b0b0b0;
+}
+
+[data-theme="dark"] .security-note {
+  background: #3d3d2d;
+  border-color: #5d5d3d;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .after-logout-container {
+    padding: 1rem;
+  }
+
+  .return-button {
+    min-width: 100%;
+  }
+}

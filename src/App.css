@@ -1,0 +1,198 @@
+.App {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding-bottom: 2rem;
+  transition: background 0.3s ease;
+}
+
+.flight-search-container {
+  margin-top: 60px;
+}
+
+.search-container {
+  background: white;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.search-container h1,
+.search-container p {
+  transition: color 0.3s ease;
+}
+
+.flight-card {
+  border: none;
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s, background-color 0.3s ease;
+  background-color: white;
+}
+
+.flight-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+}
+
+.flight-details {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e9ecef;
+}
+
+.location-info {
+  padding: 0.5rem;
+}
+
+.location-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #6c757d;
+  margin-bottom: 0.5rem;
+}
+
+.location-name {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #212529;
+}
+
+.time {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #495057;
+}
+
+.date {
+  font-size: 0.875rem;
+  color: #6c757d;
+}
+
+.timezone {
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.flight-arrow {
+  color: #667eea;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .flight-search-container {
+    margin-top: 80px;
+  }
+
+  .flight-arrow {
+    transform: rotate(90deg);
+    margin: 1rem 0;
+  }
+
+  .search-container {
+    padding: 1.5rem;
+  }
+
+  .time {
+    font-size: 1.25rem;
+  }
+
+  .location-name {
+    font-size: 1rem;
+  }
+}
+
+/* Dark Mode Styles */
+[data-theme="dark"] .App {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+}
+
+[data-theme="dark"] .search-container {
+  background: #2d2d3d;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="dark"] .search-container h1 {
+  color: #e0e0e0;
+}
+
+[data-theme="dark"] .search-container p,
+[data-theme="dark"] .search-container .form-label,
+[data-theme="dark"] .search-container .form-text {
+  color: #b0b0b0;
+}
+
+[data-theme="dark"] .form-control {
+  background-color: #3d3d4d;
+  border-color: #4d4d5d;
+  color: #e0e0e0;
+}
+
+[data-theme="dark"] .form-control:focus {
+  background-color: #3d3d4d;
+  border-color: #667eea;
+  color: #e0e0e0;
+}
+
+[data-theme="dark"] .form-control::placeholder {
+  color: #808080;
+}
+
+[data-theme="dark"] .btn-primary {
+  background-color: #667eea;
+  border-color: #667eea;
+}
+
+[data-theme="dark"] .btn-primary:hover {
+  background-color: #5568d3;
+  border-color: #5568d3;
+}
+
+[data-theme="dark"] .btn-primary:disabled {
+  background-color: #4d4d5d;
+  border-color: #4d4d5d;
+}
+
+[data-theme="dark"] .flight-card {
+  background-color: #2d2d3d;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .flight-card:hover {
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="dark"] .flight-card h4,
+[data-theme="dark"] .location-name {
+  color: #e0e0e0;
+}
+
+[data-theme="dark"] .flight-card .text-muted,
+[data-theme="dark"] .location-label,
+[data-theme="dark"] .date,
+[data-theme="dark"] .timezone {
+  color: #b0b0b0 !important;
+}
+
+[data-theme="dark"] .time {
+  color: #d0d0d0;
+}
+
+[data-theme="dark"] .flight-details {
+  border-top-color: #4d4d5d;
+}
+
+[data-theme="dark"] .flight-arrow {
+  color: #8899ff;
+}
+
+[data-theme="dark"] .alert-info {
+  background-color: #2d3748;
+  border-color: #4a5568;
+  color: #cbd5e0;
+}
+
+[data-theme="dark"] .spinner-border {
+  color: #8899ff !important;
+}
