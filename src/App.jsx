@@ -8,6 +8,10 @@ import Landing from './pages/Landing';
 import Home from './pages/Home';
 import MindMap from './pages/MindMap';
 import BMICalculator from './pages/BMICalculator';
+import HeartRateCalculator from './pages/HeartRateCalculator';
+import CSVViewer from './pages/CSVViewer';
+import CoinFlipper from './pages/CoinFlipper';
+import KanbanBoard from './pages/KanbanBoard';
 import AfterLogin from './pages/AfterLogin';
 import AfterLogout from './pages/AfterLogout';
 import './App.css';
@@ -35,6 +39,10 @@ function App() {
           <Route path="/flights" element={<Home />} />
           <Route path="/mindmap" element={<MindMap />} />
           <Route path="/bmi" element={<BMICalculator />} />
+          <Route path="/heartrate" element={<HeartRateCalculator />} />
+          <Route path="/csv" element={<CSVViewer />} />
+          <Route path="/coinflip" element={<CoinFlipper />} />
+          <Route path="/kanban" element={<KanbanBoard />} />
           <Route path="/afterlogin" element={<AfterLogin />} />
           <Route path="/afterlogout" element={<AfterLogout />} />
         </Routes>

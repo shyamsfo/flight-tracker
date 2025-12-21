@@ -1,0 +1,85 @@
+.csv-viewer-page {
+  min-height: 100vh;
+  padding-top: 60px;
+  background: var(--bs-body-bg);
+}
+
+.csv-grid {
+  width: 100%;
+  height: 600px;
+}
+
+/* Dark theme support for AG Grid */
+[data-theme="dark"] .ag-theme-alpine {
+  --ag-background-color: #212529;
+  --ag-foreground-color: #f8f9fa;
+  --ag-header-background-color: #343a40;
+  --ag-header-foreground-color: #f8f9fa;
+  --ag-odd-row-background-color: #2c3034;
+  --ag-row-hover-color: rgba(255, 255, 255, 0.1);
+  --ag-border-color: #495057;
+  --ag-secondary-border-color: #495057;
+}
+
+[data-theme="dark"] .ag-theme-alpine .ag-header {
+  background-color: #343a40;
+  border-bottom: 1px solid #495057;
+}
+
+[data-theme="dark"] .ag-theme-alpine .ag-row {
+  border-color: #495057;
+}
+
+[data-theme="dark"] .ag-theme-alpine .ag-cell {
+  border-color: #495057;
+}
+
+/* Light theme adjustments */
+[data-theme="light"] .ag-theme-alpine {
+  --ag-header-background-color: #f8f9fa;
+  --ag-odd-row-background-color: #f8f9fa;
+  --ag-row-hover-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .csv-grid {
+    height: 500px;
+  }
+
+  .csv-viewer-page .container-fluid {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
+/* Tab styling */
+.csv-viewer-page .nav-tabs {
+  border-bottom: 2px solid #dee2e6;
+}
+
+.csv-viewer-page .nav-tabs .nav-link {
+  color: #6c757d;
+  font-weight: 500;
+}
+
+.csv-viewer-page .nav-tabs .nav-link.active {
+  color: #198754;
+  border-color: #dee2e6 #dee2e6 #fff;
+  border-bottom: 2px solid #198754;
+}
+
+[data-theme="dark"] .csv-viewer-page .nav-tabs {
+  border-bottom-color: #495057;
+}
+
+[data-theme="dark"] .csv-viewer-page .nav-tabs .nav-link {
+  color: #adb5bd;
+}
+
+[data-theme="dark"] .csv-viewer-page .nav-tabs .nav-link.active {
+  color: #198754;
+  background-color: #212529;
+  border-color: #495057 #495057 #212529;
+  border-bottom: 2px solid #198754;
+}

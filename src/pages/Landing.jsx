@@ -35,6 +35,75 @@ const Landing = () => {
       ),
       description: 'Explore knowledge through a non-linear network of questions and answers',
       color: '#10b981'
+    },
+    {
+      id: 'bmi',
+      name: 'BMI Calculator',
+      path: '/bmi',
+      icon: (
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+          <line x1="3" y1="9" x2="21" y2="9" />
+          <line x1="9" y1="21" x2="9" y2="9" />
+        </svg>
+      ),
+      description: 'Calculate your Body Mass Index with support for metric and imperial units',
+      color: '#f59e0b'
+    },
+    {
+      id: 'heartrate',
+      name: 'Heart Rate Zones',
+      path: '/heartrate',
+      icon: (
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+        </svg>
+      ),
+      description: 'Determine your optimal heart rate training zones based on age and gender',
+      color: '#ef4444'
+    },
+    {
+      id: 'csv',
+      name: 'CSV Viewer',
+      path: '/csv',
+      icon: (
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+          <polyline points="14 2 14 8 20 8" />
+          <line x1="8" y1="13" x2="16" y2="13" />
+          <line x1="8" y1="17" x2="16" y2="17" />
+        </svg>
+      ),
+      description: 'View and analyze CSV files with powerful grid features and filtering',
+      color: '#16a34a'
+    },
+    {
+      id: 'coinflip',
+      name: 'Coin Flipper',
+      path: '/coinflip',
+      icon: (
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="12" cy="12" r="10" />
+          <path d="M12 2a10 10 0 0 1 0 20" />
+        </svg>
+      ),
+      description: 'Simulate coin flips and visualize the probability distribution over time',
+      color: '#fbbf24'
+    },
+    {
+      id: 'kanban',
+      name: 'Kanban Board',
+      path: '/kanban',
+      icon: (
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="3" y="3" width="7" height="7" />
+          <rect x="14" y="3" width="7" height="7" />
+          <rect x="14" y="14" width="7" height="7" />
+          <rect x="3" y="14" width="7" height="7" />
+        </svg>
+      ),
+      description: 'Organize and manage tasks with customizable columns and drag-and-drop',
+      color: '#8b5cf6'
     }
   ];
 

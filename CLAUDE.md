@@ -51,6 +51,7 @@ This is a React SPA using HashRouter (not BrowserRouter) for routing. The app ha
 
 1. **Flight Search** (`/flights`) - Mock flight search interface
 2. **Mind Map** (`/mindmap`) - Interactive knowledge graph using ReactFlow
+2. **BMI Calculator** (`/bmi`) - Interactive BMI Calculator
 
 ### Context Providers
 

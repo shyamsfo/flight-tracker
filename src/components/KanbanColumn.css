@@ -1,0 +1,105 @@
+.kanban-column {
+  background: var(--bs-light);
+  border: 1px solid var(--bs-border-color);
+  border-radius: 8px;
+  min-width: 320px;
+  max-width: 320px;
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
+  max-height: calc(100vh - 250px);
+}
+
+.kanban-column-header {
+  padding: 1rem;
+  border-bottom: 2px solid var(--bs-border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--bs-white);
+  border-radius: 8px 8px 0 0;
+}
+
+.kanban-column-title {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--bs-body-color);
+}
+
+.kanban-column-count {
+  background: var(--bs-secondary);
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.kanban-column-body {
+  padding: 1rem;
+  flex: 1;
+  overflow-y: auto;
+  min-height: 200px;
+  max-height: calc(100vh - 400px);
+}
+
+.kanban-column-empty {
+  text-align: center;
+  padding: 2rem 1rem;
+  color: var(--bs-secondary);
+  font-style: italic;
+}
+
+.kanban-column-footer {
+  padding: 0.75rem 1rem;
+  border-top: 1px solid var(--bs-border-color);
+  background: var(--bs-white);
+  border-radius: 0 0 8px 8px;
+}
+
+/* Scrollbar styling */
+.kanban-column-body::-webkit-scrollbar {
+  width: 6px;
+}
+
+.kanban-column-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.kanban-column-body::-webkit-scrollbar-thumb {
+  background: var(--bs-gray-400);
+  border-radius: 3px;
+}
+
+.kanban-column-body::-webkit-scrollbar-thumb:hover {
+  background: var(--bs-gray-500);
+}
+
+/* Dark theme */
+[data-theme="dark"] .kanban-column {
+  background: #2c3034;
+  border-color: #495057;
+}
+
+[data-theme="dark"] .kanban-column-header {
+  background: #343a40;
+  border-bottom-color: #495057;
+}
+
+[data-theme="dark"] .kanban-column-title {
+  color: #f8f9fa;
+}
+
+[data-theme="dark"] .kanban-column-footer {
+  background: #343a40;
+  border-top-color: #495057;
+}
+
+[data-theme="dark"] .kanban-column-body::-webkit-scrollbar-thumb {
+  background: #6c757d;
+}
+
+[data-theme="dark"] .kanban-column-body::-webkit-scrollbar-thumb:hover {
+  background: #adb5bd;
+}
