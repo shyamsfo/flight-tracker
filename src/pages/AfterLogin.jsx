@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Container, Row, Col, Card, Spinner, Button } from 'react-bootstrap';
+import { Container, Row, Col, Card, Spinner, Button, Alert } from 'react-bootstrap';
 import { useAuth0 } from '../context/Auth0Context';
-import Cookies from 'js-cookie';
-import auth0Client from '../lib/auth0';
-import d_log from 'loglevel';
+import api_utils from '../lib/api_utils';
 import './AfterLogin.css';
 
 const AfterLogin = () => {
-  const { isAuthenticated, user, isLoading } = useAuth0();
+  const { isAuthenticated, user, isLoading, getAccessToken } = useAuth0();
   const navigate = useNavigate();
-  const [tokenRetrieved, setTokenRetrieved] = useState(false);
+  const [verifyResult, setVerifyResult] = useState(null);
+  const [verifyError, setVerifyError] = useState(null);
+  const [verifying, setVerifying] = useState(false);
 
   useEffect(() => {
     // If not authenticated and not loading, redirect to home
@@ -18,39 +18,6 @@ const AfterLogin = () => {
       navigate('/');
     }
   }, [isAuthenticated, isLoading, navigate]);
-
-  useEffect(() => {
-    // Get auth token and set cookie when user is authenticated
-    const retrieveAuthToken = async () => {
-      if (isAuthenticated && !tokenRetrieved) {
-        try {
-          d_log.debug('Retrieving auth token...');
-
-          // Initialize auth0Client if needed
-          if (!auth0Client.isReady()) {
-            await auth0Client.init();
-          }
-
-          // Get the auth code/token
-          const authToken = await auth0Client.get_auth_code();
-
-          if (authToken) {
-            d_log.debug('Auth token retrieved successfully');
-            // Set cookie with 2-hour expiration (2/24 days)
-            Cookies.set('ds_auth0_access_token', authToken, { expires: 2/24 });
-            d_log.debug('Cookie set: ds_auth0_access_token');
-            setTokenRetrieved(true);
-          }
-        } catch (error) {
-          d_log.error('Error retrieving auth token:', error);
-          // If token retrieval fails, remove any existing cookie
-          Cookies.remove('ds_auth0_access_token');
-        }
-      }
-    };
-
-    retrieveAuthToken();
-  }, [isAuthenticated, tokenRetrieved]);
 
   if (isLoading) {
     return (
@@ -73,6 +40,21 @@ const AfterLogin = () => {
 
   const handleContinue = () => {
     navigate('/');
+  };
+
+  const handleVerifyBackend = async () => {
+    setVerifying(true);
+    setVerifyResult(null);
+    setVerifyError(null);
+    try {
+      const token = await getAccessToken();
+      const data = await api_utils.get_data(token, '/verify');
+      setVerifyResult(data);
+    } catch (err) {
+      setVerifyError(err.message || 'Backend verification failed');
+    } finally {
+      setVerifying(false);
+    }
   };
 
   return (
@@ -176,7 +158,7 @@ const AfterLogin = () => {
                     )}
                   </div>
 
-                  <div className="text-center mt-4">
+                  <div className="text-center mt-4 d-flex justify-content-center gap-3">
                     <Button
                       variant="primary"
                       size="lg"
@@ -185,7 +167,71 @@ const AfterLogin = () => {
                     >
                       Continue to Flight Tracker
                     </Button>
+                    <Button
+                      variant="outline-success"
+                      size="lg"
+                      onClick={handleVerifyBackend}
+                      disabled={verifying}
+                    >
+                      {verifying ? (
+                        <>
+                          <Spinner animation="border" size="sm" className="me-2" />
+                          Verifying...
+                        </>
+                      ) : (
+                        'Verify Backend'
+                      )}
+                    </Button>
                   </div>
+
+                  {verifyResult && (
+                    <Alert variant="success" className="mt-3" dismissible onClose={() => setVerifyResult(null)}>
+                      <Alert.Heading>Backend Verified</Alert.Heading>
+                      <div className="user-details mb-3">
+                        {verifyResult.user?.picture && (
+                          <div className="text-center mb-2">
+                            <img
+                              src={verifyResult.user.picture}
+                              alt={verifyResult.user.name || 'User'}
+                              style={{ width: 48, height: 48, borderRadius: '50%' }}
+                            />
+                          </div>
+                        )}
+                        {verifyResult.user?.name && (
+                          <p className="mb-1"><strong>Name:</strong> {verifyResult.user.name}</p>
+                        )}
+                        {verifyResult.user?.email && (
+                          <p className="mb-1"><strong>Email:</strong> {verifyResult.user.email}</p>
+                        )}
+                        {verifyResult.user?.nickname && (
+                          <p className="mb-1"><strong>Nickname:</strong> {verifyResult.user.nickname}</p>
+                        )}
+                        {verifyResult.user?.email_verified !== undefined && (
+                          <p className="mb-1">
+                            <strong>Email Verified:</strong>{' '}
+                            <span className={`badge bg-${verifyResult.user.email_verified ? 'success' : 'warning'}`}>
+                              {verifyResult.user.email_verified ? 'Yes' : 'No'}
+                            </span>
+                          </p>
+                        )}
+                        <p className="mb-1"><strong>Sub:</strong> {verifyResult.claims?.sub}</p>
+                      </div>
+                      <hr />
+                      <details>
+                        <summary className="mb-2" style={{ cursor: 'pointer' }}>Raw token claims & user info</summary>
+                        <pre className="mb-0" style={{ fontSize: '0.8rem', whiteSpace: 'pre-wrap' }}>
+                          {JSON.stringify({ claims: verifyResult.claims, user: verifyResult.user }, null, 2)}
+                        </pre>
+                      </details>
+                    </Alert>
+                  )}
+
+                  {verifyError && (
+                    <Alert variant="danger" className="mt-3" dismissible onClose={() => setVerifyError(null)}>
+                      <Alert.Heading>Verification Failed</Alert.Heading>
+                      <p>{verifyError}</p>
+                    </Alert>
+                  )}
                 </div>
               </Card.Body>
             </Card>

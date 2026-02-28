@@ -12,6 +12,7 @@ import HeartRateCalculator from './pages/HeartRateCalculator';
 import CSVViewer from './pages/CSVViewer';
 import CoinFlipper from './pages/CoinFlipper';
 import KanbanBoard from './pages/KanbanBoard';
+import UserInfo from './pages/UserInfo';
 import AfterLogin from './pages/AfterLogin';
 import AfterLogout from './pages/AfterLogout';
 import './App.css';
@@ -43,6 +44,7 @@ function App() {
           <Route path="/csv" element={<CSVViewer />} />
           <Route path="/coinflip" element={<CoinFlipper />} />
           <Route path="/kanban" element={<KanbanBoard />} />
+          <Route path="/userinfo" element={<UserInfo />} />
           <Route path="/afterlogin" element={<AfterLogin />} />
           <Route path="/afterlogout" element={<AfterLogout />} />
         </Routes>

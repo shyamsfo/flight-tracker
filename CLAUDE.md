@@ -2,29 +2,32 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Package Manager
+Use **yarn** (not npm) for all package operations.
+
 ## Build Commands
 
 ```bash
 # Development server (runs on http://localhost:3000)
-npm run dev
+yarn dev
 
 # Production build
-npm run build
+yarn build
 
 # Staging build
-npm run staging
+yarn staging
 
 # Development build (same as production)
-npm run devel
+yarn devel
 
 # Preview production build
-npm run preview
+yarn preview
 
 # Lint code
-npm run lint
+yarn lint
 
 # Watch mode for continuous builds
-npm run watch
+yarn watch
 ```
 
 ## Environment Configuration

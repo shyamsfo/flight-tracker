@@ -162,6 +162,10 @@
   transition: background-color 0.2s ease;
 }
 
+.auth-dropdown-item-default {
+  color: #333;
+}
+
 .auth-dropdown-item:hover {
   background: #f8f9fa;
 }
@@ -191,6 +195,10 @@
 [data-theme="dark"] .auth-dropdown-item {
   background: #2d2d3d;
   color: #ff6b6b;
+}
+
+[data-theme="dark"] .auth-dropdown-item-default {
+  color: #e0e0e0;
 }
 
 [data-theme="dark"] .auth-dropdown-item:hover {

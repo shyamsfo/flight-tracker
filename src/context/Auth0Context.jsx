@@ -24,10 +24,11 @@ export const Auth0Provider = ({ children }) => {
           domain: import.meta.env.VITE_AUTH0_DOMAIN,
           clientId: import.meta.env.VITE_AUTH0_CLIENT_ID,
           authorizationParams: {
-            redirect_uri: `${window.location.origin}/#/afterlogin`,
+            redirect_uri: import.meta.env.VITE_AUTH0_REDIRECT_URL,
             audience: import.meta.env.VITE_AUTH0_AUDIENCE,
           },
           cacheLocation: 'localstorage',
+          useRefreshTokens: true,
         });
 
         setAuth0Client(client);
@@ -90,7 +91,7 @@ export const Auth0Provider = ({ children }) => {
       try {
         auth0Client.logout({
           logoutParams: {
-            returnTo: `${window.location.origin}/#/afterlogout`,
+            returnTo: import.meta.env.VITE_AUTH0_AFTER_LOGOUT_URL || `${window.location.origin}/#/afterlogout`,
           },
         });
       } catch (error) {

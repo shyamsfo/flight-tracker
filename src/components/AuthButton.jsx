@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAuth0 } from '../context/Auth0Context';
 import './AuthButton.css';
 
@@ -6,6 +7,7 @@ const AuthButton = () => {
   const { isAuthenticated, user, isLoading, login, logout } = useAuth0();
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useRef(null);
+  const navigate = useNavigate();
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -98,6 +100,23 @@ const AuthButton = () => {
                 </div>
               </div>
             </div>
+            <div className="auth-dropdown-divider"></div>
+            <button className="auth-dropdown-item auth-dropdown-item-default" onClick={() => { setShowDropdown(false); navigate('/userinfo'); }}>
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+              </svg>
+              <span>User Info</span>
+            </button>
             <div className="auth-dropdown-divider"></div>
             <button className="auth-dropdown-item" onClick={handleLogout}>
               <svg
