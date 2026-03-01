@@ -1,8 +1,8 @@
 import os
-import json
-from functools import lru_cache, wraps
+from functools import wraps
 
 import jwt
+from jwt import PyJWKClient
 import requests
 from flask import Flask, jsonify, request, g
 from flask_cors import CORS
@@ -22,28 +22,18 @@ ALGORITHMS = ["RS256"]
 # JWT helpers
 # ---------------------------------------------------------------------------
 
-@lru_cache()
-def get_jwks():
-    url = f"https://{AUTH0_DOMAIN}/.well-known/jwks.json"
-    resp = requests.get(url, timeout=10)
-    resp.raise_for_status()
-    return resp.json()
-
-
-def get_signing_key(token):
-    jwks = get_jwks()
-    unverified_header = jwt.get_unverified_header(token)
-    for key in jwks["keys"]:
-        if key["kid"] == unverified_header["kid"]:
-            return jwt.algorithms.RSAAlgorithm.from_jwk(json.dumps(key))
-    raise Exception("Unable to find matching signing key")
+jwks_client = PyJWKClient(
+    f"https://{AUTH0_DOMAIN}/.well-known/jwks.json",
+    cache_keys=True,
+    lifespan=3600,
+)
 
 
 def decode_token(token):
-    signing_key = get_signing_key(token)
+    signing_key = jwks_client.get_signing_key_from_jwt(token)
     return jwt.decode(
         token,
-        signing_key,
+        signing_key.key,
         algorithms=ALGORITHMS,
         audience=AUTH0_AUDIENCE,
         issuer=f"https://{AUTH0_DOMAIN}/",

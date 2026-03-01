@@ -46,7 +46,9 @@
       "Bash(uv venv:*)",
       "Bash(uv pip install:*)",
       "Bash(kill:*)",
-      "Bash(pkill:*)"
+      "Bash(pkill:*)",
+      "Bash(uv lock:*)",
+      "Bash(uv sync:*)"
     ],
     "deny": [],
     "ask": []
