@@ -1,4 +1,5 @@
 import os
+import time
 from functools import wraps
 
 import jwt
@@ -41,6 +42,39 @@ def decode_token(token):
 
 
 # ---------------------------------------------------------------------------
+# Userinfo cache  (sub -> {data, fetched_at})
+# ---------------------------------------------------------------------------
+
+_userinfo_cache = {}
+USERINFO_TTL = 300  # seconds
+
+
+def fetch_userinfo(sub, access_token):
+    now = time.time()
+    cached = _userinfo_cache.get(sub)
+    if cached and now - cached["fetched_at"] < USERINFO_TTL:
+        return cached["data"]
+
+    try:
+        resp = requests.get(
+            f"https://{AUTH0_DOMAIN}/userinfo",
+            headers={"Authorization": f"Bearer {access_token}"},
+            timeout=10,
+        )
+        if resp.ok:
+            data = resp.json()
+            _userinfo_cache[sub] = {"data": data, "fetched_at": now}
+            return data
+    except Exception:
+        pass
+
+    # return stale cache if the fetch failed
+    if cached:
+        return cached["data"]
+    return {}
+
+
+# ---------------------------------------------------------------------------
 # @require_auth decorator
 # ---------------------------------------------------------------------------
 
@@ -54,8 +88,20 @@ def require_auth(f):
         token = auth_header.split(" ", 1)[1]
 
         try:
-            g.jwt_claims = decode_token(token)
+            claims = decode_token(token)
+            g.jwt_claims = claims
             g.access_token = token
+            g.user_id = claims.get("sub")
+
+            userinfo = fetch_userinfo(g.user_id, token)
+            g.user = {
+                "sub": g.user_id,
+                "email": userinfo.get("email"),
+                "name": userinfo.get("name"),
+                "nickname": userinfo.get("nickname"),
+                "picture": userinfo.get("picture"),
+                "email_verified": userinfo.get("email_verified"),
+            }
         except jwt.ExpiredSignatureError:
             return jsonify({"error": "Token has expired"}), 401
         except jwt.InvalidAudienceError:
@@ -149,19 +195,7 @@ def health():
 @app.route("/verify")
 @require_auth
 def verify():
-    userinfo = {}
-    try:
-        userinfo_resp = requests.get(
-            f"https://{AUTH0_DOMAIN}/userinfo",
-            headers={"Authorization": f"Bearer {g.access_token}"},
-            timeout=10,
-        )
-        if userinfo_resp.ok:
-            userinfo = userinfo_resp.json()
-    except Exception:
-        pass
-
-    return jsonify({"verified": True, "claims": g.jwt_claims, "user": userinfo})
+    return jsonify({"verified": True, "claims": g.jwt_claims, "user": g.user})
 
 
 @app.route("/flights")
